@@ -4,7 +4,7 @@ class wordSave:
 	def __init__(self):
 		self.document = Document()
 
-	def reform(self, mass, line)
+	def reform(self, mass, line):
 		for element in mass:
 			x=line.add_run(element["line"])
 			x.bold = element["bold"]
@@ -19,8 +19,8 @@ class wordSave:
 
 
 			
-	def addParagraph(self, mass, stylee):
-		line = self.document.add_paragraph(element, style = stylee )
+	def addParagraph(self, mass):
+		line = self.document.add_paragraph('')
 		self.reform(mass, line)
 
 	#ЧТО ПЕРЕДАЕШЬ??
@@ -28,5 +28,7 @@ class wordSave:
 		line = element["name"]
 		wig = element["wight"]
 		leng = element["lenght"]
-		document.add_picture(name, wight = wig, lenght = leng)	
+		document.add_picture(name, wight = wig, lenght = leng)
 
+	def saveFile(self):
+		self.document.save('demo.docx')
