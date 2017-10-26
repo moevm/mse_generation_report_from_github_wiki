@@ -18,17 +18,20 @@ class wordSave:
 		self.reform(mass, line)
 
 
-			
+	#style='IntenseQuote'-цитата
+	#style='ListBullet'-точки	
+	#style='ListNumber'-цифры	
 	def addParagraph(self, mass):
-		line = self.document.add_paragraph('')
+		style='ListBullet'
+		line = self.document.add_paragraph('', style)
 		self.reform(mass, line)
 
-	#ЧТО ПЕРЕДАЕШЬ??
+
 	def addPicture(self, mass):
 		line = element["name"]
-		wig = element["wight"]
-		leng = element["lenght"]
-		document.add_picture(name, wight = wig, lenght = leng)
+		wig = element["width"]
+		leng = element["length"]
+		document.add_picture(name, width = wig, length = leng)
 
 	def saveFile(self):
 		self.document.save('demo.docx')
