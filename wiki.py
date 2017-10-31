@@ -7,51 +7,68 @@ import os
 import sys
 
 
-#{line:"dsfdsfsfdsfsdffsd",bold:True,italic:False,underline:False}
+# {line:"dsfdsfsfdsfsdffsd",bold:True,italic:False,underline:False}
 
 class WikiParser:
     def __init__(self):
         self.word = wordSave()
         self.downloadWikiPage()
         self.word.saveFile()
-        
 
+    def parseLine(self, htmlLine):
+        bs = BeautifulSoup(htmlLine, "lxml")
 
-    def parseLine(self,htmlLine):
-        bs = BeautifulSoup(htmlLine)
-
-        print(bs.prettify())
+        # print(bs.prettify())
         body = bs.find('body').findChildren(recursive=False)
-        print(body[0].contents)
+        # print(body)
 
         for element in body:
             bold = False
             italic = False
             underline = False
-            arr = [{"line":"","bold":False,"italic":False,"underline":False}]
+            arr = [{"type": "text", "line": "", "bold": False, "italic": False, "underline": False}]
+            # print(element)
             for tag in element.contents:
-                self.getInner(arr,tag)
-            if (element.name[0:1] == "h"):
-                self.word.addHeading(arr)
-            else:
+                if tag!="\n" and tag!="":
+                    self.getInner(arr, element)
+
+            if element.name[0:1] == "h" and element.name[0:2] != "hr":
+                self.word.addHeading(arr, int(element.name[1:2]))
+            if element.name == "p":
+                self.word.addPicture(arr)
+            if element.name == "li" or element.name == "ul":
+                self.word.addList(arr)
+            if element.name == "blockquote":
                 self.word.addParagraph(arr)
+            if element.name != 'p' and element.name[0:1] != "h":
+                print(arr)
+                print(element)
+                print(element.name)
 
+    def getInner(self, arr, htmlTag):
 
-
-    def getInner(self,arr,htmlTag):
         tag = htmlTag.name
-        if tag==None:
-            arr.append(arr[-1])
+        print(htmlTag)
+        if tag!=None:
+            print(tag)
+        if tag == None:
+            # arr.append(arr[-1])
             arr[-1]["line"] = htmlTag
         else:
+            if tag=="img":
+                arr[-1]["type"] = "img"
+                arr[-1]["src"] = htmlTag['src']
+                arr[-1]["line"] = htmlTag['alt']
+            if tag=="a":
+                arr[-1]["src"] = htmlTag['href']
+                arr[-1]["type"] = "link"
             for tt in htmlTag.contents:
-                self.getInner(arr,tt)
+                if tt != "\n" and tt != "":
+                    self.getInner(arr, tt)
 
         pass
 
-
-
-    def getFiles(self,name):
+    def getFiles(self, name):
         print(name)
         self.workDir = os.path.abspath(os.path.dirname(sys.argv[0])) + "\\" + name + "\\"
         onlyfiles = [f for f in listdir(self.workDir) if isfile(join(self.workDir, f))]
@@ -60,18 +77,21 @@ class WikiParser:
         for file in onlyfiles:
             self.parseMd(self.workDir + file)
 
-    def parseMd(self,file):
+    def parseMd(self, file):
         f = open(file, 'r')
-        htmlPage=""
+        htmlPage = ""
         for line in f:
-            htmlPage+=mistune.markdown(line)
+            htmlPage += mistune.markdown(line)
         self.parseLine(htmlPage)
 
     def downloadWikiPage(self):
         link = str(input())
-        #link = "https://gist.github.com/subfuzion/0d3f19c4f780a7d75ba2"
-        os.system("git clone "+link+".wiki.git")
-        self.getFiles(link[link.rfind("/")+1::]+".wiki")
-        #print(page)
+        # link = "https://gist.github.com/subfuzion/0d3f19c4f780a7d75ba2"
+        os.system("git clone " + link + ".wiki.git")
+        self.getFiles(link[link.rfind("/") + 1::] + ".wiki")
+        # print(page)
 
+
+print("---------------------------------------")
+print("------------- START -------------")
 WikiParser()
