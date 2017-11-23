@@ -3,3 +3,4 @@
 demo.docx
 __pycache__/word.cpython-36.pyc
 *.wiki
+.idea

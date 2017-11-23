@@ -7,6 +7,7 @@ import os
 import sys
 
 
+
 # {line:"dsfdsfsfdsfsdffsd",bold:True,italic:False,underline:False}
 
 class WikiParser:
@@ -46,7 +47,6 @@ class WikiParser:
                 print(element.name)
 
     def getInner(self, arr, htmlTag):
-
         tag = htmlTag.name
         print(htmlTag)
         if tag!=None:
@@ -85,10 +85,13 @@ class WikiParser:
         self.parseLine(htmlPage)
 
     def downloadWikiPage(self):
-        link = str(input())
-        # link = "https://gist.github.com/subfuzion/0d3f19c4f780a7d75ba2"
+
+        #self.titleDeed()
+        #return
+        #link = str(input())
+        link = "https://niksh81@bitbucket.org/niksh81/wikitest"
         os.system("git clone " + link + ".wiki.git")
-        self.getFiles(link[link.rfind("/") + 1::] + ".wiki")
+        self.getFiles(link[link.rfind("/") + 1::].replace(' ', '') + ".wiki")
         # print(page)
 
 
