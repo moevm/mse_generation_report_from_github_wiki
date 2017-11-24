@@ -3,6 +3,7 @@ from os.path import isfile, join
 from bs4 import BeautifulSoup
 from word import wordSave
 import mistune
+import io
 import os
 import sys
 
@@ -17,9 +18,10 @@ class WikiParser:
         self.word.saveFile()
 
     def parseLine(self, htmlLine):
+        #print(htmlLine)
         bs = BeautifulSoup(htmlLine, "lxml")
 
-        # print(bs.prettify())
+        #print(bs.prettify())
         body = bs.find('body').findChildren(recursive=False)
         # print(body)
 
@@ -65,7 +67,6 @@ class WikiParser:
             for tt in htmlTag.contents:
                 if tt != "\n" and tt != "":
                     self.getInner(arr, tt)
-
         pass
 
     def getFiles(self, name):
@@ -78,10 +79,12 @@ class WikiParser:
             self.parseMd(self.workDir + file)
 
     def parseMd(self, file):
-        f = open(file, 'r')
+        with io.open(file, 'r', encoding='utf8') as fileHelp:
+            f = fileHelp.readlines()
         htmlPage = ""
         for line in f:
             htmlPage += mistune.markdown(line)
+            print(line)
         self.parseLine(htmlPage)
 
     def downloadWikiPage(self):
@@ -89,7 +92,7 @@ class WikiParser:
         #self.titleDeed()
         #return
         #link = str(input())
-        link = "https://niksh81@bitbucket.org/niksh81/wikitest"
+        link = "https://github.com/NikitaShabashov/WikiTest"
         os.system("git clone " + link + ".wiki.git")
         self.getFiles(link[link.rfind("/") + 1::].replace(' ', '') + ".wiki")
         # print(page)
