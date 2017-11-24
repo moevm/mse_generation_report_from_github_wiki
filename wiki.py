@@ -3,8 +3,10 @@ from os.path import isfile, join
 from bs4 import BeautifulSoup
 from word import wordSave
 import mistune
+import io
 import os
 import sys
+
 
 
 # {line:"dsfdsfsfdsfsdffsd",bold:True,italic:False,underline:False}
@@ -16,9 +18,10 @@ class WikiParser:
         self.word.saveFile()
 
     def parseLine(self, htmlLine):
+        #print(htmlLine)
         bs = BeautifulSoup(htmlLine, "lxml")
 
-        # print(bs.prettify())
+        #print(bs.prettify())
         body = bs.find('body').findChildren(recursive=False)
         # print(body)
 
@@ -46,7 +49,6 @@ class WikiParser:
                 print(element.name)
 
     def getInner(self, arr, htmlTag):
-
         tag = htmlTag.name
         print(htmlTag)
         if tag!=None:
@@ -65,7 +67,6 @@ class WikiParser:
             for tt in htmlTag.contents:
                 if tt != "\n" and tt != "":
                     self.getInner(arr, tt)
-
         pass
 
     def getFiles(self, name):
@@ -78,17 +79,22 @@ class WikiParser:
             self.parseMd(self.workDir + file)
 
     def parseMd(self, file):
-        f = open(file, 'r')
+        with io.open(file, 'r', encoding='utf8') as fileHelp:
+            f = fileHelp.readlines()
         htmlPage = ""
         for line in f:
             htmlPage += mistune.markdown(line)
+            print(line)
         self.parseLine(htmlPage)
 
     def downloadWikiPage(self):
-        link = str(input())
-        # link = "https://gist.github.com/subfuzion/0d3f19c4f780a7d75ba2"
+
+        #self.titleDeed()
+        #return
+        #link = str(input())
+        link = "https://github.com/NikitaShabashov/WikiTest"
         os.system("git clone " + link + ".wiki.git")
-        self.getFiles(link[link.rfind("/") + 1::] + ".wiki")
+        self.getFiles(link[link.rfind("/") + 1::].replace(' ', '') + ".wiki")
         # print(page)
 
 
