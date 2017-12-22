@@ -1,45 +1,58 @@
 {
-    "title": "Name of cources Work",
-    "cathedra": "МО ЭВМ",
-    "discipline": "Введение в программную инженерию",
-    "theme": "Генератор отчета по курсовой работе по содержимому репозитория на Github.com",
-    "group": "5303",
-    "name": "Шабашов Н.А.",
-    "teacher": "Кринкин К.В.",
-    "initialData": "Описание исходных данных",
-    "content": "Введение, Содержание, Заключение, Список использованных источников",
-    "numberPages": "60",
-    "extradition": "20.09.2017",
-    "surrender": "24.10.2017",
-    "protection": "5.12.2017",
-    "annotation": "Кратко (в 8-10 строк) указать основное содержание курсового проекта (курсовой работы), методы исследования (разработки), полученные результаты.",
-    "summary": "Briefly (8-10 lines) to describe the main content of the course project, research methods, and the results.",
-    "introduction": "Briefly (8-10 lines) to describe the main content of the course project, research methods, and the results.",
-    "pages": [
-        {
-            "file": "pageFile",
-            "title": "Title of page"
-        },
-        {
-            "file": "pageFile2",
-            "title": ""
-        }
-    ],
-    "formatter": [
-        {
-            "name": "h1",
-            "size": 15,
-            "type": "heading"
-        },
-        {
-            "name": "h2",
-            "size": 10,
-            "type": "heading"
-        },
-        {
-            "name": "p",
-            "size": 15,
-            "type": "paragraph"
-        }
-    ]
+  "title": "Name of cources Work",
+  "cathedra": "МО ЭВМ",
+  "discipline": "Введение в программную инженерию",
+  "theme": "Генератор отчета по курсовой работе по содержимому репозитория на Github.com",
+  "group": "5303",
+  "name": "Шабашов Н.А.",
+  "teacher": "Кринкин К.В.",
+  "initialData": "Описание исходных данных",
+  "content": "Введение, Содержание, Заключение, Список использованных источников",
+  "numberPages": "60",
+  "extradition": "20.09.2017",
+  "surrender": "24.10.2017",
+  "protection": "5.12.2017",
+  "annotation": "Кратко (в 8-10 строк) указать основное содержание курсового проекта (курсовой работы), методы исследования (разработки), полученные результаты.",
+  "summary": "Briefly (8-10 lines) to describe the main content of the course project, research methods, and the results.",
+  "introduction": "Briefly (8-10 lines) to describe the main content of the course project, research methods, and the results.",
+  "parseIssue": true,
+  "parsePullRequests": true,
+  "pages": [
+    {
+      "file": "pageFile",
+      "title": "Title of page"
+    },
+    {
+      "file": "pageFile2",
+      "title": ""
+    }
+  ],
+  "formatter": {
+    "h1": {
+      "name": "h1",
+      "size": 27,
+      "font": "Calibri"
+    },
+    "h2": {
+      "name": "h2",
+      "size": 21,
+      "font": "Calibri"
+    },
+    "p": {
+      "name": "p",
+      "size": 15,
+      "font": "Calibri"
+    }
+  },
+  "ignoreFiles": [
+    {
+      "regExp": "\\.git"
+    }
+  ],
+  "chooseFiles": [
+    {
+      "regExp": ".java"
+    }
+  ],
+  "maxIssueAndPull":10
 }
