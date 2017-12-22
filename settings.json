@@ -30,17 +30,17 @@
   "formatter": {
     "h1": {
       "name": "h1",
-      "size": 30,
+      "size": 27,
       "font": "Calibri"
     },
     "h2": {
       "name": "h2",
-      "size": 20,
+      "size": 21,
       "font": "Calibri"
     },
     "p": {
       "name": "p",
-      "size": 10,
+      "size": 15,
       "font": "Calibri"
     }
   },
@@ -51,9 +51,8 @@
   ],
   "chooseFiles": [
     {
-      "regExp": ".js"
-    },{
-      "regExp": ".html"
+      "regExp": ".java"
     }
-  ]
+  ],
+  "maxIssueAndPull":10
 }

@@ -1,5 +1,7 @@
 
 0d3f19c4f780a7d75ba2.wiki/
-demo.docx
+*.docx
+*.pdf
 __pycache__/word.cpython-36.pyc
 *.wiki
+.idea
